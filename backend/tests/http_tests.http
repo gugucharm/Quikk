@@ -1,0 +1,113 @@
+# -----------------------
+# AUTH CONTROLLER
+# -----------------------
+
+### ✅ Register a new user
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "name": "Maria",
+  "email": "maria@example.com",
+  "password": "SuperSecure123!"
+}
+
+### 🔐 Login with correct credentials
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "maria@example.com",
+  "password": "SuperSecure123!"
+}
+
+### ♻️ Refresh the access token
+POST http://localhost:5000/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "token"
+}
+
+### 🧑‍💻 Deactivate your own account
+PUT http://localhost:5000/deactivate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ0eXBlIjoiYWNjZXNzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3NDMzNjI2MTh9.Gh8I4BSWNxmVTqc_aGpaXHAF5PBOVXlHTyAm4EBc4lg
+Content-Type: application/json
+
+{}
+
+### Deactivating somebody's account
+PUT http://localhost:5000/deactivate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJ0eXBlIjoiYWNjZXNzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3NDMxODExNDd9.WkBO_ATqPrPH-rs78Oyb_uCtv2O6p9AEcRRfc6u8z-0
+Content-Type: application/json
+
+{
+  "user_id": 2
+}
+
+# -----------------------
+# ARTICLE CONTROLLER
+# -----------------------
+
+### 📰 Create a new article (author+ required)
+POST http://localhost:5000/articles
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ0eXBlIjoiYWNjZXNzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3NDMzNjI2MTh9.Gh8I4BSWNxmVTqc_aGpaXHAF5PBOVXlHTyAm4EBc4lg
+
+{
+  "title": "Bitcoin Breaks $70,000!",
+  "content": "Bitcoin has reached a new all-time high amid bullish market sentiment.",
+  "author": "Satoshi Nakamoto",
+  "tags": ["Bitcoin", "Market", "ATH"]
+}
+
+### 📋 Get all articles (public)
+GET http://localhost:5000/articles
+
+### 🔍 Get a specific article by ID (admin+ required)
+GET http://localhost:5000/articles/1
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 🔎 Get a specific article by slug (public)
+GET http://localhost:5000/articles/slug/bitcoin-breaks-70-000
+
+### ✏️ Update an article (author+ required)
+PUT http://localhost:5000/articles/1
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "title": "Bitcoin Hits $70K — Market Reaction",
+  "content": "Updated: Bitcoin broke $70k, and analysts are weighing in.",
+  "tags": ["Bitcoin", "Update", "Analysis"]
+}
+
+### ❌ Delete an article (admin+ required)
+DELETE http://localhost:5000/articles/1
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+# -----------------------
+# GOD CONTROLLER
+# -----------------------
+
+### 👑 Create user as god
+POST http://localhost:5000/god-7vTg9LxWzqhc
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJ0eXBlIjoiYWNjZXNzIiwicm9sZSI6ImdvZCIsImV4cCI6MTc0MzE1MTEzN30.QDKfVaQzEb33DlBLnzQPSZp07OaMvd1HhXMVykUcork
+
+{
+  "name": "Aatrox",
+  "email": "aatrox@matrix.com",
+  "password": "AatroxMatrix123!",
+  "role": "author"
+}
+
+### 🔧 Change user's role by email (god only)
+PUT http://localhost:5000/god-7vTg9LxWzqhc
+Content-Type: application/json
+Authorization: Bearer YOUR_GOD_ACCESS_TOKEN_HERE
+
+{
+  "email": "victoria@example.com",
+  "role": "author"
+}
